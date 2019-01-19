@@ -12,35 +12,42 @@
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript">
-    //
+    // Execute function on click
     $("#cat-button").on("click", function() {
 
-      //
+      // Assign API URL to a more manageable variable - important for string concatonation
       var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=cats";
 
-      //
+      // AJAX call itself
       $.ajax({
         url: queryURL,
         method: "GET"
       })
 
-      //
+      // Once data from AJAX call received, then execute this function:
         .then(function(response) {
 
-        //
+        // Assigns image URL to a more manageable variable.
           var imageUrl = response.data.image_original_url;
 
-          //
+          // Creating a new element image. Angle brackets used = creates new element; no angle brackets = selecting an element.
           var catImage = $("<img>");
 
-          //
+          // Sets the attributes of the newly created element to be the imageURL, for image display.
           catImage.attr("src", imageUrl);
+          // Sets alt attribute to a string labeled "cat image"
           catImage.attr("alt", "cat image");
+          // Assigns the class name 'cat' to the newly created element for selector/styling purposes.
+          catImage.addClass("cat");
 
-          //
+          // Adds the image element to the HTML to precede the element with the ID '#images'
           $("#images").prepend(catImage);
         });
     });
+// Write a function that returns whether or not an input is an integer without using isInteger:
+    function isNumber (num) {
+      return parseInt(num) === num;
+    }
   </script>
 </body>
 
