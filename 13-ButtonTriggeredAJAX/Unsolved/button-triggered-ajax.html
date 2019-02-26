@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>Quoth the Giphy</title>
 </head>
+
 <body>
   <div id="buttons">
     <button data-person="arnold schwarzenegger">
@@ -13,58 +15,62 @@
       My happiness grows in direct proportion to my acceptance,
       and in inverse proportion to my expectations.
     </button>
+
     <!-- STEP ONE: Open this file in the browser and click on the buttons. Watch what happens -->
+
     <!-- STEP TWO: between the dashed lines below
             * add three more buttons
             * add a data-person attribute of famous people you know
             * with a quote said by them -->
+
     <!-- **************************************** -->
-    <button data-person="bernie sanders">Holla holla git dolla</button>
-    <button data-person="andre 3000">Bombs over Baghdad</button>
+
+    <!-- YOUR BUTTONS GO HERE!!!!!! Delete this comment and put your buttons here.  -->
+
     <!-- **************************************** -->
+
+
     <!-- STEP THREE: open this file in the browser and click on your buttons. If they don't work, then fix your buttons -->
+
     <!-- STEP FOUR: go over the JavaScript with your partners, and explain the lines of code to each other. -->
+
   </div>
+
   <div id="gifs-appear-here">
   </div>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript">
-  // When clicking the button executes a function.
     $("button").on("click", function() {
-      // Assigns the variable 'person' to the data-person id of each button.
       var person = $(this).attr("data-person");
-      // Assigns the API URL with string concotonation to the variable 'queryURL' inclusive of the variable 'person'
       var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
         person + "&api_key=dc6zaTOxFJmzC&limit=10";
-      // Executes AJAX call with the method 'GET'
+
       $.ajax({
         url: queryURL,
         method: "GET"
       })
-        // After receiving results from AJAX call then execute the following function:
         .then(function(response) {
-          // Assigns the AJAX response data to the variable "results"
           var results = response.data;
-          // for loop iterates through the responses from the AJAX call
+
           for (var i = 0; i < results.length; i++) {
-            // Creates a new variable named gifDiv that creates a new element when called.
             var gifDiv = $("<div>");
-            // Creates a new variable named rating that provides the rating associated with the gif from the AJAX call.
+
             var rating = results[i].rating;
-            // Creates a new variable named 'p' that creates a new element with text information when called.
+
             var p = $("<p>").text("Rating: " + rating);
-            // Creates a new variable named 'personImage' that creates a new image element when called.
+
             var personImage = $("<img>");
-            // Sets the attributes of the associated variable personImage.
             personImage.attr("src", results[i].images.fixed_height.url);
-            // Sets the gifDiv to precede variables 'p' and 'personImage' when called.
+
             gifDiv.prepend(p);
             gifDiv.prepend(personImage);
-            // Once function is executed prepends the associated gif to the element with the ID '#gifs-appear-here'
+
             $("#gifs-appear-here").prepend(gifDiv);
           }
         });
     });
   </script>
 </body>
+
 </html>
